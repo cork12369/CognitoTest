@@ -32,6 +32,37 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Local PostgreSQL database
+
+Looply ships with a portable PostgreSQL + pgvector foundation in [`compose.yaml`](./compose.yaml). It stores canonical product generations separately from individual marketplace listings, with source/evidence, ports, capabilities, requirements, document versions, chunks, and compatibility-rule tables ready for the documentation-ingestion pipeline.
+
+### Start locally
+
+1. Start **Docker Desktop** and wait until it reports that the engine is running.
+2. Confirm `.env.local` includes the local `DATABASE_URL` from `.env.example`.
+3. Create the database, apply all SQL migrations, seed the 12 demo audio-equipment records, and verify row counts:
+
+```bash
+npm run db:setup
+```
+
+The command expects 12 canonical products and 12 marketplace listings. Individual commands are also available:
+
+```bash
+npm run db:up
+npm run db:migrate
+npm run db:seed
+npm run db:verify
+```
+
+### Deploy to a private VPS
+
+- Copy `compose.yaml`, `database/migrations/`, and the application code to the VPS.
+- Set a strong `POSTGRES_PASSWORD` and a non-public `DATABASE_URL` in the VPS environment; do not use the local development password outside your machine.
+- Keep PostgreSQL off the public internet: do not publish port `5432` unless you have a specific private-network requirement.
+- Run `docker compose up -d postgres`, followed by `npm run db:migrate`, `npm run db:seed`, and `npm run db:verify` from the deployed application directory.
+- Back up the PostgreSQL volume before moving on to manual/PDF ingestion.
+
 ## OpenRouter chat + embedding configuration
 
 The demo never sends credentials to the browser. Add these values to `.env.local` (or your deployment provider’s server-side environment settings):

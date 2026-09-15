@@ -6,22 +6,31 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:migrate": "node --env-file=.env.local --import tsx scripts/migrate.ts",
+    "db:seed": "node --env-file=.env.local --import tsx scripts/seed-catalogue.ts",
+    "db:verify": "node --env-file=.env.local --import tsx scripts/verify-database.ts",
+    "db:setup": "npm run db:up && npm run db:migrate && npm run db:seed && npm run db:verify"
   },
   "dependencies": {
     "next": "16.3.5",
+    "pg": "^8.23.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^22",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
     "postcss": "^8",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "typescript": "^5"
   }
 }
