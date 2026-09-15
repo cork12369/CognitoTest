@@ -1,6 +1,6 @@
-# RigGraph
+# Looply
 
-RigGraph is a public, responsive candidate-assessment demo for an AI-enabled marketplace for used home-recording equipment in Singapore.
+Looply is a public, responsive candidate-assessment demo for an AI-enabled marketplace for used home-recording equipment in Singapore.
 
 ## What is included
 
@@ -10,6 +10,17 @@ RigGraph is a public, responsive candidate-assessment demo for an AI-enabled mar
 - Grounded listing/catalogue Q&A with explicit unknowns
 - Server-side OpenAI-compatible gateway integration, plus deterministic catalogue fallbacks
 - A required public [`/notes`](http://localhost:3000/notes) page documenting scope, AI, limitations, and decisions
+
+## Product naming
+
+- **Loop Builder** — visual rig builder
+- **My Gear** — saved equipment inventory (also called Gear Locker)
+- **Loop Check** — compatibility result
+- **My Loop** — complete setup
+- **Smart Swap** — alternative recommendations
+- **Shared Loop** — public setup page
+- **Loop Kits** — seller bundles
+- **Looply Assist** — AI assistant
 
 ## Local setup
 

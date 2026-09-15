@@ -60,8 +60,8 @@ export function BrowseExperience() {
                 <div className="hero-grid">
                     <div className="hero-copy">
                         <p className="eyebrow"><span className="eyebrow-dot" /> Singapore&apos;s used studio gear, decoded</p>
-                        <h1>Build a rig<br /><em>that just works.</em></h1>
-                        <p className="hero-description">Shop pre-loved music gear with the ports, cables, and compatibility details made clear before you buy.</p>
+                        <h1>Build a loop<br /><em>that just works.</em></h1>
+                        <p className="hero-description">Start in Loop Builder—shop pre-loved music gear with the ports, cables, and Loop Check details made clear before you buy.</p>
                         <form className="search-box" onSubmit={handleSearch}>
                             <SearchIcon className="search-icon" />
                             <label className="sr-only" htmlFor="main-search">Describe what you need</label>
@@ -75,11 +75,11 @@ export function BrowseExperience() {
                         <div className="hero-signal one" /><div className="hero-signal two" />
                         <div className="hero-device interface"><span>INPUT</span><i /><i /><i /><i /><b>48V</b></div>
                         <div className="hero-device mic"><span>MIC</span><div /></div>
-                        <div className="hero-device laptop"><span>RIG<br />GRAPH</span></div>
+                        <div className="hero-device laptop"><span>LOOP<br />LY</span></div>
                         <div className="hero-label label-mic">RØDE NT1 <small>XLR · 48V</small></div>
                         <div className="hero-label label-interface">Scarlett 2i2 <small>USB-C</small></div>
                         <div className="hero-label label-laptop">Your computer <small>USB-C host</small></div>
-                        <div className="hero-status"><span><CheckIcon /></span><div><strong>Compatible</strong><small>One cable included</small></div></div>
+                        <div className="hero-status"><span><CheckIcon /></span><div><strong>Loop Check</strong><small>One cable included</small></div></div>
                     </div>
                 </div>
             </section>
@@ -92,7 +92,7 @@ export function BrowseExperience() {
                 <div className="category-tabs" role="tablist" aria-label="Gear categories">
                     {categories.map((category) => <button key={category} role="tab" aria-selected={activeCategory === category} className={activeCategory === category ? "active" : ""} onClick={() => selectCategory(category)}>{category}</button>)}
                 </div>
-                {result && <div className="ai-result-note"><SparkleIcon /><div><strong>{result.source === "model" ? "AI-matched from the catalogue" : "Catalogue-matched search"}</strong><span>{result.rationale}</span></div><button onClick={() => { setResult(null); setQuery(""); }}>Clear</button></div>}
+                {result && <div className="ai-result-note"><SparkleIcon /><div><strong>{result.source === "model" ? "Looply Assist matched the catalogue" : "Catalogue-matched search"}</strong><span>{result.rationale}</span></div><button onClick={() => { setResult(null); setQuery(""); }}>Clear</button></div>}
                 {searchError && <p className="search-error" role="alert">{searchError}</p>}
                 <div className="listing-grid">
                     {visibleListings.map((listing, index) => <ListingCard key={listing.id} listing={listing} index={index} />)}

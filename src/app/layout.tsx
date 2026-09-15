@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: "RigGraph — Compatible music gear",
+    title: "Looply — Compatible music gear",
     description: "A curated demo marketplace for compatible home-recording gear in Singapore.",
 };
 

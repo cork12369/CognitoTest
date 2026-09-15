@@ -33,16 +33,16 @@ export function ListingQuestionBox({ listing, comparisons }: { listing: Listing;
 
     return (
         <section className="question-box" aria-labelledby="question-title">
-            <div className="question-heading"><span className="question-mark"><SparkleIcon /></span><div><p className="eyebrow">Grounded catalogue Q&amp;A</p><h2 id="question-title">Ask about this gear.</h2></div></div>
+            <div className="question-heading"><span className="question-mark"><SparkleIcon /></span><div><p className="eyebrow">Looply Assist · grounded catalogue Q&amp;A</p><h2 id="question-title">Ask about this gear.</h2></div></div>
             <p>Answers use only the details in this demo&apos;s structured catalogue. Unknown facts stay unknown.</p>
             <div className="prompt-row">{prompts.map((prompt) => <button key={prompt} onClick={() => setQuestion(prompt)}>{prompt}</button>)}</div>
             <form onSubmit={ask}>
                 <label htmlFor="listing-question" className="sr-only">Ask a question about this listing</label>
                 <textarea id="listing-question" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="e.g. Can I connect this to a condenser mic and MacBook?" rows={3} />
-                <div className="question-actions"><label>Compare with <select value={comparisonId} onChange={(event) => setComparisonId(event.target.value)}><option value="">nothing else</option>{comparisons.map((comparison) => <option key={comparison.id} value={comparison.id}>{comparison.title}</option>)}</select></label><button className="ask-button" disabled={isAsking}>{isAsking ? "Checking catalogue…" : <><SendIcon /> Ask RigGraph</>}</button></div>
+                <div className="question-actions"><label>Smart Swap with <select value={comparisonId} onChange={(event) => setComparisonId(event.target.value)}><option value="">nothing else</option>{comparisons.map((comparison) => <option key={comparison.id} value={comparison.id}>{comparison.title}</option>)}</select></label><button className="ask-button" disabled={isAsking}>{isAsking ? "Looply Assist is checking…" : <><SendIcon /> Ask Looply Assist</>}</button></div>
             </form>
             {error && <p className="search-error" role="alert">{error}</p>}
-            {answer && <div className="answer-card"><div className="answer-label"><SparkleIcon /> {answer.source === "model" ? "Model answer, grounded in catalogue" : "Catalogue-grounded answer"}</div><p>{answer.answer}</p>{answer.knownFacts.length > 0 && <div className="known-facts"><strong>Facts considered</strong><ul>{answer.knownFacts.map((fact) => <li key={fact}>{fact}</li>)}</ul></div>}<div className="unknown-facts"><strong>Not established</strong><p>{answer.unknowns}</p></div></div>}
+            {answer && <div className="answer-card"><div className="answer-label"><SparkleIcon /> {answer.source === "model" ? "Looply Assist answer, grounded in catalogue" : "Catalogue-grounded answer"}</div><p>{answer.answer}</p>{answer.knownFacts.length > 0 && <div className="known-facts"><strong>Facts considered</strong><ul>{answer.knownFacts.map((fact) => <li key={fact}>{fact}</li>)}</ul></div>}<div className="unknown-facts"><strong>Not established</strong><p>{answer.unknowns}</p></div></div>}
         </section>
     );
 }
