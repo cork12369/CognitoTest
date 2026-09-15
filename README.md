@@ -32,17 +32,19 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Optional AI gateway configuration
+## OpenRouter chat + embedding configuration
 
 The demo never sends credentials to the browser. Add these values to `.env.local` (or your deployment provider’s server-side environment settings):
 
 ```env
-AI_GATEWAY_API_KEY=...
-AI_GATEWAY_BASE_URL=https://your-openai-compatible-gateway/v1
-AI_MODEL=...
+CLASSGW_BASE_URL=https://174.138.16.223/openrouter/v1
+CLASSGW_KEY=...
+AI_GATEWAY_CONSOLE_PASSWORD=...
+AI_MODEL=openai/gpt-4o-mini
+AI_EMBEDDING_MODEL=openai/text-embedding-3-small
 ```
 
-When configuration is available, both `/api/search` and `/api/ask` make server-side model calls. Model output is constrained to catalogue context and validated before it reaches the UI. If the model configuration is absent or a request fails, the same routes use deterministic seeded-catalogue fallbacks and label the source accordingly.
+`CLASSGW_KEY` is used for both OpenRouter chat and embeddings. On the first model-backed request, Looply embeds its seeded listing records and compact connection knowledge base with `openai/text-embedding-3-small`, caches the vectors for the server process, and retrieves only the closest records before sending them to `openai/gpt-4o-mini`. Model output is constrained to retrieved context and validated before it reaches the UI. If embedding or chat access is absent or fails, the same routes use deterministic seeded-catalogue fallbacks and label the source accordingly.
 
 ## Verification
 
