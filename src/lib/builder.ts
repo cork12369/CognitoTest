@@ -330,6 +330,7 @@ export function sanitizeCheck(raw: unknown): Omit<BuilderCheck, "source"> | null
         .map((swap) => ({
             slotId: typeof swap.slotId === "string" && swap.slotId ? swap.slotId.slice(0, 40) : "slot",
             listingIds: (Array.isArray(swap.listingIds) ? swap.listingIds : [])
+                .map((id) => (typeof id === "string" ? id.replace(/^listing:/, "") : id))
                 .filter((id): id is string => typeof id === "string" && Boolean(findListing(id)))
                 .slice(0, 2),
             reason: typeof swap.reason === "string" ? swap.reason.trim().slice(0, 200) : "Worth comparing.",

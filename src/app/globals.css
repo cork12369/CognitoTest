@@ -2110,6 +2110,7 @@ h3,
 .owned-row {
     display: flex;
     gap: 10px;
+    min-width: 0;
 }
 
 .owned-row input,

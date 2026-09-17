@@ -12,7 +12,12 @@ export async function POST(request: NextRequest) {
         const documents = await retrieveContext(query, { limit: 8 });
         if (!documents) throw new Error("Embedding retrieval unavailable");
         const modelResult = await requestModel([{ role: "system", content: systemSearchPrompt(retrievalContext(documents)) }, { role: "user", content: query }]);
-        const ids = Array.isArray(modelResult?.listingIds) ? modelResult.listingIds.filter((id): id is string => typeof id === "string" && listings.some((listing) => listing.id === id)).slice(0, 6) : [];
+        const ids = Array.isArray(modelResult?.listingIds)
+            ? modelResult.listingIds
+                  .map((id) => (typeof id === "string" ? id.replace(/^listing:/, "") : id))
+                  .filter((id): id is string => typeof id === "string" && listings.some((listing) => listing.id === id))
+                  .slice(0, 6)
+            : [];
         if (ids.length > 0) return NextResponse.json({ listingIds: ids, rationale: typeof modelResult?.rationale === "string" ? modelResult.rationale.slice(0, 500) : "Matched to retrieved Looply catalogue facts.", source: "model" });
     } catch {
         // Deterministic catalogue search keeps the demo usable when the optional gateway is unavailable.
