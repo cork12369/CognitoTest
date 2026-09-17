@@ -4,10 +4,13 @@ Looply is a public, responsive candidate-assessment demo for an AI-enabled marke
 
 ## What is included
 
-- Mobile-first browse experience with 12 structured seeded listings
+- Mobile-first browse experience with 18 structured seeded listings
 - Public item-detail pages with ports, included/missing accessories, compatibility cues, and source context
 - Natural-language catalogue search
 - Grounded listing/catalogue Q&A with explicit unknowns
+- PC-part-picker-style Loop Builder with adaptive slots, drag-and-drop cart, and automatic Loop Check evaluation
+- Hybrid RAG retrieval: in-memory listing + knowledge-base index merged with Postgres pgvector/full-text chunks carrying citation labels
+- Registry-gated TypeScript documentation-ingestion pipeline with provenance, versioning, and review-queued fact extraction
 - Server-side OpenAI-compatible gateway integration, plus deterministic catalogue fallbacks
 - A required public [`/notes`](http://localhost:3000/notes) page documenting scope, AI, limitations, and decisions
 
@@ -40,19 +43,34 @@ Looply ships with a portable PostgreSQL + pgvector foundation in [`compose.yaml`
 
 1. Start **Docker Desktop** and wait until it reports that the engine is running.
 2. Confirm `.env.local` includes the local `DATABASE_URL` from `.env.example`.
-3. Create the database, apply all SQL migrations, seed the 12 demo audio-equipment records, and verify row counts:
+3. Create the database, apply all SQL migrations, seed the 18 demo audio-equipment records, and verify row counts:
 
 ```bash
 npm run db:setup
 ```
 
-The command expects 12 canonical products and 12 marketplace listings. Individual commands are also available:
+The command expects 18 canonical products and 18 marketplace listings. Individual commands are also available:
 
 ```bash
 npm run db:up
 npm run db:migrate
 npm run db:seed
 npm run db:verify
+```
+
+### Ingest manufacturer documentation
+
+1. Approve a source in the `ingest_sources` registry table: set `enabled = TRUE`, `terms_reviewed_at`, `allowed_paths`, and a `sitemap_url` or `seed_urls`. The pipeline fails closed — unapproved sources, missing terms review, robots denials, auth challenges, and CAPTCHAs are all skipped with a log line.
+2. Run the ingestion pipeline (raw files land in gitignored `data/raw/`, chunks carry citation labels, facts enter review queues):
+
+```bash
+npm run db:ingest
+```
+
+3. Promote vetted niche-gear entries (exported as JSON from the browser `looply:custom-gear:v1` key) into `seller_statement` chunks. The script refuses to run without explicit approval:
+
+```bash
+npm run db:promote-custom -- --approve --reviewer="Your Name" --file=./vetted-custom-gear.json
 ```
 
 ### Deploy to a private VPS

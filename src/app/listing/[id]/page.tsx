@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ListingQuestionBox } from "@/components/ListingQuestionBox";
-import { ArrowIcon, CheckIcon, HeartIcon, PinIcon, SparkleIcon } from "@/components/Icons";
+import { SaveToGearButton } from "@/components/SaveToGearButton";
+import { ArrowIcon, CheckIcon, PinIcon, SparkleIcon } from "@/components/Icons";
 import { findListing, listings } from "@/lib/catalogue";
 import { money } from "@/lib/format";
 
@@ -14,10 +15,10 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
 
     return (
         <main>
-            <header className="site-header compact-header"><Link href="/" className="wordmark" aria-label="Looply home"><span>L</span>LOOPLY</Link><nav className="desktop-nav"><Link href="/">Browse gear</Link><Link href="/notes">Notes</Link></nav><Link className="back-link" href="/">← Back to browse</Link></header>
+            <header className="site-header compact-header"><Link href="/" className="wordmark" aria-label="Looply home"><span>L</span>LOOPLY</Link><nav className="desktop-nav"><Link href="/">Browse gear</Link><Link href="/builder">Loop Builder</Link><Link href="/notes">Notes</Link></nav><Link className="back-link" href="/">← Back to browse</Link></header>
             <div className="breadcrumbs"><Link href="/">Marketplace</Link><span>/</span><Link href={`/?category=${listing.category}`}>{listing.category}</Link><span>/</span><span>{listing.brand}</span></div>
             <section className="detail-layout">
-                <div className="detail-gallery"><div className="detail-image-wrap"><img src={listing.image} alt={`${listing.title} listing photo`} className="detail-image" style={{ objectPosition: listing.imagePosition }} /><button className="detail-save"><HeartIcon /> My Gear</button><span className={`compatibility-chip large ${listing.compatibility === "Ready to connect" ? "ready" : listing.compatibility === "Cable needed" ? "cable" : "check"}`}><CheckIcon /> {listing.compatibility}</span></div><p className="photo-caption">Illustrative listing photo · Product and condition details are seeded for this demo.</p></div>
+                <div className="detail-gallery"><div className="detail-image-wrap"><img src={listing.image} alt={`${listing.title} listing photo`} className="detail-image" style={{ objectPosition: listing.imagePosition }} /><SaveToGearButton listingId={listing.id} listingTitle={listing.title} /><span className={`compatibility-chip large ${listing.compatibility === "Ready to connect" ? "ready" : listing.compatibility === "Cable needed" ? "cable" : "check"}`}><CheckIcon /> {listing.compatibility}</span></div><p className="photo-caption">Illustrative listing photo · Product and condition details are seeded for this demo.</p></div>
                 <aside className="detail-summary"><p className="eyebrow"><span className="eyebrow-dot" /> {listing.category}</p><h1>{listing.title}</h1><div className="price-row"><strong>{money(listing.price)}</strong><span>{listing.condition}</span></div><p className="detail-location"><PinIcon /> {listing.location} · Pickup preferred</p><div className="seller-row"><span className="seller-avatar">{listing.sellerInitials}</span><div><strong>{listing.seller}</strong><small>Seller rating {listing.sellerRating.toFixed(1)} ★</small></div><span className="reply-time">Replies in a few hours</span></div><button className="request-button">Request to buy <ArrowIcon /></button><p className="simulated-label">Demo only · Request, payment, and pickup are simulated</p></aside>
             </section>
             <section className="detail-content">

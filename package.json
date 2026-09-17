@@ -12,6 +12,8 @@
     "db:migrate": "node --env-file=.env.local --import tsx scripts/migrate.ts",
     "db:seed": "node --env-file=.env.local --import tsx scripts/seed-catalogue.ts",
     "db:verify": "node --env-file=.env.local --import tsx scripts/verify-database.ts",
+    "db:ingest": "node --env-file=.env.local --import tsx scripts/ingest-docs.ts",
+    "db:promote-custom": "node --env-file=.env.local --import tsx scripts/promote-custom-gear.ts",
     "db:setup": "npm run db:up && npm run db:migrate && npm run db:seed && npm run db:verify"
   },
   "dependencies": {

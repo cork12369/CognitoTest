@@ -30,8 +30,8 @@ async function verify() {
     `);
     const counts = result.rows[0];
     console.table(counts);
-    if (Number(counts.products) !== 12 || Number(counts.listings) !== 12) {
-        throw new Error(`Expected 12 seeded products/listings; received ${counts.products} products and ${counts.listings} listings.`);
+    if (Number(counts.products) !== 18 || Number(counts.listings) !== 18) {
+        throw new Error(`Expected 18 seeded products/listings; received ${counts.products} products and ${counts.listings} listings.`);
     }
     console.log("Looply database verification passed.");
 }

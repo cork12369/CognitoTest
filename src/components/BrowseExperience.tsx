@@ -71,6 +71,7 @@ export function BrowseExperience() {
                         <div className="search-suggestions"><span>Popular:</span><button onClick={() => { setQuery("vocal recording setup"); setResult(null); }}>Vocal recording</button><button onClick={() => { setQuery("USB-C MIDI keyboard"); setResult(null); }}>MIDI for MacBook</button><button onClick={() => { setQuery("studio monitors for an interface"); setResult(null); }}>Studio monitors</button></div>
                     </div>
                     <div className="hero-art" aria-hidden="true">
+                        <div className="hero-blob b1" /><div className="hero-blob b2" /><div className="hero-blob b3" />
                         <div className="hero-orbit orbit-one" /><div className="hero-orbit orbit-two" />
                         <div className="hero-signal one" /><div className="hero-signal two" />
                         <div className="hero-device interface"><span>INPUT</span><i /><i /><i /><i /><b>48V</b></div>

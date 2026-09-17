@@ -1,4 +1,5 @@
 type IconProps = { className?: string };
+type HeartIconProps = IconProps & { filled?: boolean };
 
 export function SearchIcon({ className }: IconProps) {
     return <svg className={className} viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.8" /><path d="m16 16 4.25 4.25" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>;
@@ -16,8 +17,8 @@ export function PinIcon({ className }: IconProps) {
     return <svg className={className} viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9.5c0 5-6 10.2-6 10.2S6 14.5 6 9.5a6 6 0 1 1 12 0Z" fill="none" stroke="currentColor" strokeWidth="1.75" /><circle cx="12" cy="9.5" r="2" fill="none" stroke="currentColor" strokeWidth="1.75" /></svg>;
 }
 
-export function HeartIcon({ className }: IconProps) {
-    return <svg className={className} viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8.7c0 5.45-8 10.05-8 10.05S4 14.15 4 8.7C4 5.9 6 4 8.55 4c1.62 0 2.77.77 3.45 1.85C12.68 4.77 13.83 4 15.45 4 18 4 20 5.9 20 8.7Z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" /></svg>;
+export function HeartIcon({ className, filled = false }: HeartIconProps) {
+    return <svg className={className} viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8.7c0 5.45-8 10.05-8 10.05S4 14.15 4 8.7C4 5.9 6 4 8.55 4c1.62 0 2.77.77 3.45 1.85C12.68 4.77 13.83 4 15.45 4 18 4 20 5.9 20 8.7Z" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" /></svg>;
 }
 
 export function CheckIcon({ className }: IconProps) {

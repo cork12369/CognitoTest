@@ -5,3 +5,4 @@ out/
 !.env.example
 *.tsbuildinfo
 .next-dev.log
+data/raw/
