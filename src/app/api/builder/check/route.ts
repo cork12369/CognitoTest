@@ -20,7 +20,26 @@ export async function POST(request: NextRequest) {
             { role: "user", content: JSON.stringify({ goal, owned: ownedSummary(owned), assignments }).slice(0, 2000) },
         ]);
         const check = sanitizeCheck(modelResult);
-        if (check) return NextResponse.json({ ...check, source: "model" });
+        if (check) {
+            const ruleCheck = checkBuildFallback(goal, owned, assignments);
+            const hasPhantomRuleIssue = ruleCheck.issues.some((issue) => issue.severity === "block" && /48v|phantom/i.test(issue.message));
+            const hasXlrCableRuleIssue = ruleCheck.issues.some((issue) => /xlr cable/i.test(issue.message));
+            let issues = check.issues;
+            let suggestions = check.suggestions;
+            let swaps = check.swaps;
+            if (!hasPhantomRuleIssue) {
+                issues = issues.filter((issue) => !((issue.severity === "warn" || issue.severity === "block") && /48v|phantom/i.test(issue.message)));
+                suggestions = suggestions.filter((suggestion) => !/48v|phantom/i.test(suggestion));
+                swaps = swaps.filter((swap) => !/48v|phantom/i.test(swap.reason));
+            }
+            if (!hasXlrCableRuleIssue) {
+                issues = issues.filter((issue) => !((issue.severity === "warn" || issue.severity === "block") && /xlr cable/i.test(issue.message)));
+                suggestions = suggestions.filter((suggestion) => !/xlr cable/i.test(suggestion));
+                swaps = swaps.filter((swap) => !/xlr cable/i.test(swap.reason));
+            }
+            const status = issues.some((issue) => issue.severity === "block") ? "blocked" : issues.some((issue) => issue.severity === "warn") ? "attention" : "ready";
+            return NextResponse.json({ ...check, issues, suggestions, swaps, status, source: "model" });
+        }
     } catch {
         // The deterministic rule engine below keeps Loop Check usable without the gateway.
     }

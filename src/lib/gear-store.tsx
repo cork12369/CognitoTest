@@ -63,8 +63,16 @@ function readCustomGear(): CustomGear[] {
 }
 
 export function GearProvider({ children }: { children: ReactNode }) {
-    const [savedIds, setSavedIds] = useState<string[]>(() => readSavedIds());
-    const [customGear, setCustomGear] = useState<CustomGear[]>(() => readCustomGear());
+    const [savedIds, setSavedIds] = useState<string[]>([]);
+    const [customGear, setCustomGear] = useState<CustomGear[]>([]);
+    const [hydrated, setHydrated] = useState(false);
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- mount-only hydration load from localStorage
+        setSavedIds(readSavedIds());
+        setCustomGear(readCustomGear());
+        setHydrated(true);
+    }, []);
 
     useEffect(() => {
         const onStorage = (event: StorageEvent) => {
@@ -76,13 +84,14 @@ export function GearProvider({ children }: { children: ReactNode }) {
     }, []);
 
     useEffect(() => {
+        if (!hydrated) return;
         try {
             window.localStorage.setItem(GEAR_KEY, JSON.stringify(savedIds));
             window.localStorage.setItem(CUSTOM_KEY, JSON.stringify(customGear));
         } catch {
             // Storage may be unavailable in private modes; the in-memory state still works.
         }
-    }, [savedIds, customGear]);
+    }, [savedIds, customGear, hydrated]);
 
     const toggle = useCallback((id: string) => {
         if (!findListing(id)) return;
