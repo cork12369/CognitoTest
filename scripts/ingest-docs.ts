@@ -166,7 +166,7 @@ async function ingest() {
                 await client.query("UPDATE documents SET current_version_id = $1 WHERE id = $2", [version.rows[0].id, document.rows[0].id]);
 
                 if (status !== "raw_pending_parse") {
-                    const citation = `${source.name} — ${title.slice(0, 80)}`;
+                    const citation = `${source.name} · ${title.slice(0, 80)}`;
                     const chunks = chunkSections(textSections, citation);
                     const vectors = await requestEmbeddings(chunks.map((chunk) => chunk.content)).catch(() => null);
                     for (let index = 0; index < chunks.length; index += 1) {

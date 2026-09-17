@@ -382,7 +382,7 @@ export function BuilderExperience() {
             const listing = findListing(item.id);
             if (!listing) return;
             if (slot.category !== "Any" && listing.category !== slot.category) {
-                setCheckError(`${listing.title} is ${listing.category}, but the ${slot.label} slot expects ${slot.category}. It was still placed — Loop Check will flag any mismatch.`);
+                setCheckError(`${listing.title} is ${listing.category}, but the ${slot.label} slot expects ${slot.category}. It was still placed. Loop Check will flag any mismatch.`);
             }
         }
         setAssignments((current) => ({ ...current, [slotId]: item }));
@@ -507,7 +507,7 @@ export function BuilderExperience() {
             <div className="builder-layout">
                 <aside className="builder-sidebar" aria-label="Saved gear">
                     <div className="sidebar-heading"><h2>My Gear cart</h2><span>{savedListings.length}</span></div>
-                    <p className="sidebar-hint">Hearts from the marketplace land here. Drag a card into a slot — or use “Place in” on touch screens.</p>
+                    <p className="sidebar-hint">Hearts from the marketplace land here. Drag a card into a slot, or use “Place in” on touch screens.</p>
                     {savedListings.length === 0 && (
                         <div className="sidebar-empty">
                             <p>Nothing saved yet.</p>

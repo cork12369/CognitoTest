@@ -59,7 +59,7 @@ async function promote() {
         );
         await client.query("UPDATE documents SET current_version_id = $1 WHERE id = $2", [version.rows[0].id, document.rows[0].id]);
 
-        const citation = `Community library entry — unverified (reviewed by ${reviewer})`;
+        const citation = `Community library entry · unverified (reviewed by ${reviewer})`;
         const chunks = chunkSections([{ heading: entry.label, body }], citation).slice(0, 3);
         const vectors = await requestEmbeddings(chunks.map((chunk) => chunk.content)).catch(() => null);
         for (let index = 0; index < chunks.length; index += 1) {

@@ -1,5 +1,5 @@
 /* ============================================================
-   LOOPLY — Clay design system
+   LOOPLY: Clay design system
    Tokens first, then primitives, then layout, then responsive.
    ============================================================ */
 
@@ -30,7 +30,7 @@
     --sans: var(--font-sans), "Nunito", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: var(--font-sans), "Nunito", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-    /* clay shadow recipe — soft and consistent, no hard offsets */
+    /* clay shadow recipe: soft and consistent, no hard offsets */
     --clay:
         7px 9px 18px rgba(61, 64, 91, .10),
         -4px -4px 12px rgba(255, 255, 255, .85),
@@ -444,7 +444,7 @@ h3,
     color: var(--terra);
 }
 
-/* hero art — clay signal-flow */
+/* hero art: clay signal-flow */
 .hero-art {
     position: relative;
     height: 430px;

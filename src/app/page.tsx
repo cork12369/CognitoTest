@@ -15,7 +15,7 @@ export default function HomePage() {
             <section className="how-section" id="how-it-works">
                 <div className="how-copy"><p className="eyebrow"><span className="eyebrow-dot" /> Less research, more recording</p><h2>Compatibility is a<br /><em>better starting point.</em></h2></div>
                 <div className="how-steps">
-                    <article><span>01</span><h3>Save to My Gear</h3><p>Heart listings anywhere in the marketplace — they become the cart for your build.</p></article>
+                    <article><span>01</span><h3>Save to My Gear</h3><p>Heart listings anywhere in the marketplace. They become the cart for your build.</p></article>
                     <article><span>02</span><h3>Build My Loop</h3><p>Open Loop Builder, add gear you already own, and drag saved items into the suggested slots.</p></article>
                     <article><span>03</span><h3>Run Loop Check</h3><p>Looply Assist evaluates every change for missing cables and connection caveats.</p></article>
                 </div>

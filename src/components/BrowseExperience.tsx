@@ -61,7 +61,7 @@ export function BrowseExperience() {
                     <div className="hero-copy">
                         <p className="eyebrow"><span className="eyebrow-dot" /> Singapore&apos;s used studio gear, decoded</p>
                         <h1>Build a loop<br /><em>that just works.</em></h1>
-                        <p className="hero-description">Start in Loop Builder—shop pre-loved music gear with the ports, cables, and Loop Check details made clear before you buy.</p>
+                        <p className="hero-description">Start in Loop Builder and shop pre-loved music gear with the ports, cables, and Loop Check details made clear before you buy.</p>
                         <form className="search-box" onSubmit={handleSearch}>
                             <SearchIcon className="search-icon" />
                             <label className="sr-only" htmlFor="main-search">Describe what you need</label>
@@ -98,7 +98,7 @@ export function BrowseExperience() {
                 <div className="listing-grid">
                     {visibleListings.map((listing, index) => <ListingCard key={listing.id} listing={listing} index={index} />)}
                 </div>
-                {visibleListings.length === 0 && <div className="empty-state"><SparkleIcon /><h3>No exact match yet</h3><p>Try mentioning a category, budget, or connection type—like “XLR microphone” or “USB-C interface”.</p><button onClick={() => { setResult(null); setQuery(""); }}>See all gear</button></div>}
+                {visibleListings.length === 0 && <div className="empty-state"><SparkleIcon /><h3>No exact match yet</h3><p>Try mentioning a category, budget, or connection type, like “XLR microphone” or “USB-C interface”.</p><button onClick={() => { setResult(null); setQuery(""); }}>See all gear</button></div>}
             </section>
         </>
     );

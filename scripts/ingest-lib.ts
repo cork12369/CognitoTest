@@ -89,9 +89,9 @@ export function chunkSections(sections: { heading: string; body: string }[], sou
 
 export function extractRequirementHints(text: string): { type: string; detail: string }[] {
     const hints: { type: string; detail: string }[] = [];
-    if (/48v|phantom power/i.test(text)) hints.push({ type: "phantom_power", detail: "May require 48V phantom power — verify against the specific microphone documentation." });
-    if (/xlr (cable|microphone cable)/i.test(text)) hints.push({ type: "cable", detail: "XLR cable requirement mentioned — verify inclusion per listing." });
-    if (/usb-c (adapter|cable)|usb-b/i.test(text)) hints.push({ type: "adapter", detail: "USB connector or adapter requirement mentioned — verify host compatibility." });
-    if (/balanced (monitor|trs|xlr)/i.test(text)) hints.push({ type: "cable", detail: "Balanced monitor cabling mentioned — a stereo pair normally needs two cables." });
+    if (/48v|phantom power/i.test(text)) hints.push({ type: "phantom_power", detail: "May require 48V phantom power. Verify against the specific microphone documentation." });
+    if (/xlr (cable|microphone cable)/i.test(text)) hints.push({ type: "cable", detail: "XLR cable requirement mentioned. Verify inclusion per listing." });
+    if (/usb-c (adapter|cable)|usb-b/i.test(text)) hints.push({ type: "adapter", detail: "USB connector or adapter requirement mentioned. Verify host compatibility." });
+    if (/balanced (monitor|trs|xlr)/i.test(text)) hints.push({ type: "cable", detail: "Balanced monitor cabling mentioned. A stereo pair normally needs two cables." });
     return hints;
 }

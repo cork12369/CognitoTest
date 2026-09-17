@@ -97,12 +97,12 @@ export function suggestSlotsFallback(goal: string, owned: OwnedItem[]): BuildSlo
         slots.push({ id: "midi", label: "MIDI controller", category: "MIDI controllers", required: true, reason: "The goal mentions keys, beats, or MIDI control." });
     }
     if (slots.length === 0 && !hasOwned.has("Accessories")) {
-        slots.push({ id: "cables", label: "Cables & stands", category: "Accessories", required: false, reason: "Your core roles look owned — worth checking the cables and supports around them." });
+        slots.push({ id: "cables", label: "Cables & stands", category: "Accessories", required: false, reason: "Your core roles look owned. Worth checking the cables and supports around them." });
     } else if (slots.length >= 2 && !hasOwned.has("Accessories")) {
         slots.push({ id: "cables", label: "Cables & stands", category: "Accessories", required: false, reason: "Interfaces, mics, and monitors usually need extra cables or a stand to actually connect." });
     }
     if (slots.length === 0) {
-        slots.push({ id: "upgrade", label: "Next upgrade", category: "Any", required: false, reason: "Your setup looks covered — drag in anything saved to compare an upgrade." });
+        slots.push({ id: "upgrade", label: "Next upgrade", category: "Any", required: false, reason: "Your setup looks covered. Drag in anything saved to compare an upgrade." });
     }
     return slots.slice(0, 6);
 }
@@ -137,7 +137,7 @@ export function checkBuildFallback(goal: string, owned: OwnedItem[], assignments
     const goalsUsbC = /usb.?c|macbook|laptop|computer/.test(goal.toLowerCase());
 
     for (const slot of resolved.filter((item) => !item.listing && !item.customLabel && item.required)) {
-        issues.push({ slotId: slot.slotId, severity: "warn", message: `${slot.slotLabel} is still empty — drag a saved item in or pick something from the marketplace.` });
+        issues.push({ slotId: slot.slotId, severity: "warn", message: `${slot.slotLabel} is still empty. Drag a saved item in or pick something from the marketplace.` });
     }
 
     for (const mic of mics) {
@@ -149,20 +149,20 @@ export function checkBuildFallback(goal: string, owned: OwnedItem[], assignments
             } else if (!powered) {
                 issues.push({ severity: "block", message: `${mic.title} needs 48V phantom power, and none of the assigned interfaces state that they provide it.` });
             } else if (!includesXlrCable(mic) && !accessories.some((item) => includesXlrCable(item))) {
-                issues.push({ severity: "warn", message: `${mic.title} connects over XLR — add an XLR cable if one is not already included.` });
+                issues.push({ severity: "warn", message: `${mic.title} connects over XLR. Add an XLR cable if one is not already included.` });
             }
         } else if (micNeedsXlr(mic)) {
             if (!interfaces.some((item) => hasXlrInput(item))) {
                 issues.push({ severity: "block", message: `${mic.title} needs an XLR microphone input, but no assigned interface has one.` });
             } else if (!includesXlrCable(mic) && !accessories.some((item) => includesXlrCable(item))) {
-                issues.push({ severity: "warn", message: `${mic.title} has no XLR cable in the build — the listing also flags this as missing.` });
+                issues.push({ severity: "warn", message: `${mic.title} has no XLR cable in the build. The listing also flags this as missing.` });
             }
         }
     }
 
     for (const item of interfaces) {
         if (isUsbB(item) && goalsUsbC) {
-            issues.push({ severity: "warn", message: `${item.title} uses a USB-B host connection — a USB-C computer needs an adapter or a USB-C to USB-B data cable.` });
+            issues.push({ severity: "warn", message: `${item.title} uses a USB-B host connection. A USB-C computer needs an adapter or a USB-C to USB-B data cable.` });
             suggestions.push("Prefer a USB-C interface, or add a USB-C to USB-B data cable to the accessories slot.");
         }
     }
@@ -174,7 +174,7 @@ export function checkBuildFallback(goal: string, owned: OwnedItem[], assignments
             issues.push({ severity: "warn", message: "The assigned interface does not state balanced line outputs for these monitors." });
         }
         if (!accessories.some((item) => /trs|xlr|monitor cable/i.test(`${item.title} ${item.ports.join(" ")}`))) {
-            issues.push({ severity: "warn", message: "A monitor pair normally needs two balanced cables — none are in the accessories slot." });
+            issues.push({ severity: "warn", message: "A monitor pair normally needs two balanced cables. None are in the accessories slot." });
             suggestions.push("Add a pair of balanced TRS or XLR monitor cables.");
         }
     }
@@ -186,7 +186,7 @@ export function checkBuildFallback(goal: string, owned: OwnedItem[], assignments
     }
 
     if (midi.length > 0 && interfaces.length === 0 && monitors.length === 0 && headphones.length === 0) {
-        issues.push({ severity: "info", message: "A MIDI controller sends control data only — it does not record audio or drive speakers by itself." });
+        issues.push({ severity: "info", message: "A MIDI controller sends control data only. It does not record audio or drive speakers by itself." });
         suggestions.push("Pair the MIDI controller with an interface plus headphones or monitors for a complete loop.");
     }
 
@@ -200,7 +200,7 @@ export function checkBuildFallback(goal: string, owned: OwnedItem[], assignments
     for (const item of owned) {
         if (item.listingId && assignedIds.has(item.listingId)) {
             const listing = findListing(item.listingId);
-            issues.push({ severity: "info", message: `${listing?.title ?? item.label} is listed as both owned and assigned — that is fine for planning, just not two separate items.` });
+            issues.push({ severity: "info", message: `${listing?.title ?? item.label} is listed as both owned and assigned. That is fine for planning; it is still one item.` });
         }
     }
 
@@ -230,8 +230,8 @@ export function checkBuildFallback(goal: string, owned: OwnedItem[], assignments
     }
 
     if (suggestions.length === 0) {
-        if (issues.some((issue) => issue.severity !== "info")) suggestions.push("Fill the flagged slots above and re-check — the panel updates automatically.");
-        else suggestions.push("This combination looks compatible on catalogue facts — arrange a pickup to verify condition in person.");
+        if (issues.some((issue) => issue.severity !== "info")) suggestions.push("Fill the flagged slots above and re-check. The panel updates automatically.");
+        else suggestions.push("This combination looks compatible on catalogue facts. Arrange a pickup to verify condition in person.");
     }
 
     const knownFacts = [...new Set(resolved.flatMap((item) => item.listing?.facts ?? []))].slice(0, 5);

@@ -16,7 +16,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-    title: "Looply — Compatible music gear",
+    title: "Looply · Compatible music gear",
     description:
         "A clay-textured demo marketplace for compatible used home-recording gear in Singapore, with grounded AI search and catalogue Q&A.",
 };

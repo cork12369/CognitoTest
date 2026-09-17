@@ -3,7 +3,7 @@ import { BuilderExperience } from "@/components/BuilderExperience";
 import { GearCountLink } from "@/components/GearCountLink";
 
 export const metadata = {
-    title: "Loop Builder — Looply",
+    title: "Loop Builder · Looply",
     description: "Drag saved gear into adaptive build slots and let Looply Assist check compatibility.",
 };
 
